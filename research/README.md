@@ -1,5 +1,7 @@
 # Offline Evaluation
 
+This folder contains the offline evaluation work used to choose the fallback model for the main inference router.
+
 Compares fallback model candidates for the Clinical AI Inference Router
 on 1,905 labeled TCGA pathology reports across 32 cancer types.
 
@@ -29,8 +31,9 @@ No GPU needed. Run any time to see current results.
 
 ## Decision
 
-Qwen2.5-7B selected as default fallback. Matches Claude Haiku on
-low-confidence cases at zero cost with no external API dependency.
+Qwen2.5-7B was selected as the default fallback because it crossed 90%
+accuracy on low-confidence cases at zero API cost, while staying reasonably
+close to Claude Haiku.
 
 Groq Llama3.1-8B available as alternative via `LLM_BACKEND=groq`
 for RAM-constrained deployments.

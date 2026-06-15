@@ -4,8 +4,6 @@ A confidence-based routing system for cancer type classification from clinical p
 
 > **Note:** This is a research prototype built on de-identified public TCGA data. It is not validated for clinical use.
 
----
-
 ## Background
 
 During my master's capstone, I evaluated multiple approaches for classifying TCGA pathology reports into 32 cancer types across 9,523 reports.
@@ -13,8 +11,6 @@ During my master's capstone, I evaluated multiple approaches for classifying TCG
 One result stood out beyond overall accuracy: the hybrid model's routing score was strongly correlated with whether it was likely to be correct. On high-confidence cases, the hybrid achieved 90.5% accuracy. On low-confidence cases, that dropped to 53.0%.
 
 That finding turned a model output into a routing signal. This project builds on that idea.
-
----
 
 ## Core Idea
 
@@ -43,15 +39,11 @@ Score < threshold → planned Qwen2.5-7B fallback
 Log prediction and routing details
 ```
 
----
-
 ## Routing Threshold
 
 The 0.6 threshold was examined on the full 1,905-report test set, where it showed a sharp accuracy split: 90.5% above the threshold versus 53.0% below.
 
 This is a known limitation. A separate validation split would be needed before making stronger generalization claims.
-
----
 
 ## Fallback Model Selection
 
@@ -70,8 +62,6 @@ Offline evaluation compared five fallback candidates on the same 1,905-report te
 
 Qwen2.5-7B was selected as the planned fallback because it crossed 90% accuracy on low-confidence cases at zero API cost. Groq Llama3.1-8B is also being considered as a configurable alternative via `LLM_BACKEND=groq`.
 
----
-
 ## Status
 
 The system is currently under development.
@@ -85,8 +75,6 @@ The system is currently under development.
 * [ ] Admin metrics endpoint
 * [ ] Evaluation endpoint
 * [ ] Fallback model integration
-
----
 
 ## Planned Endpoints
 
@@ -110,8 +98,6 @@ POST /admin/threshold
 
 Admin endpoints will require an `X-Admin-Key` header.
 
----
-
 ## Planned Stack
 
 * **API:** FastAPI
@@ -121,8 +107,6 @@ Admin endpoints will require an `X-Admin-Key` header.
 * **Stage 2:** BART-large-MNLI using Hugging Face Transformers
 * **Fallback:** Qwen2.5-7B-Instruct, planned as a local fallback model
 * **Deployment target:** Hugging Face Spaces
-
----
 
 ## Setup
 
@@ -136,16 +120,14 @@ python train.py
 docker-compose up
 ```
 
----
-
 ## Research
 
-The `research/` directory contains the offline evaluation that motivated this project:
+The `research/` directory contains the offline evaluation that motivated this project.
 
-* `01_train_and_evaluate.ipynb` — trains models and evaluates fallback candidates
-* `02_results_viewer.ipynb` — reads checkpoint and prints comparison tables
-* `README.md` — evaluation methodology and full results
+For details on fallback model comparison and offline evaluation, see [`research/README.md`](https://github.com/mmaisa1/clinical-ai-router/blob/main/research/README.md).
 
----
+- `01_train_and_evaluate.ipynb` — trains models and evaluates fallback candidates
+- `02_results_viewer.ipynb` — reads checkpoint and prints comparison tables
+- `README.md` — evaluation methodology and full results
 
 *Capstone report available on request.*
