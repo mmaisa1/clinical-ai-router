@@ -8,7 +8,7 @@ Public routes (/classify, /classify/batch, /health) do not use this.
 
 from fastapi import Header, HTTPException, status
 
-from app.config import ADMIN_API_KEY
+from app.core.config import ADMIN_API_KEY
 
 
 async def require_admin_key(x_admin_key: str = Header(...)) -> None:
