@@ -48,6 +48,8 @@ class MetricsResponse(BaseModel):
     routed_to_hybrid: int
     routed_to_fallback: int
     fallback_rate: float
+    low_reliability_count: int
+    low_reliability_rate: float
     avg_latency_ms: float
     p50_latency_ms: float
     p95_latency_ms: float
